@@ -1,8 +1,9 @@
 #!/usr/bin/python3
 """Starts a Flask web application.
+
 The application listens on 0.0.0.0, port 5000.
 Routes:
-    /hbnb: HBnB home page.
+    /states_list: HTML page with a list of all State objects in DBStorage.
 """
 from models import storage
 from flask import Flask
@@ -11,14 +12,14 @@ from flask import render_template
 app = Flask(__name__)
 
 
-@app.route("/hbnb", strict_slashes=False)
-def hbnb():
-    """Displays the main HBnB filters HTML page."""
+@app.route("/hbnb_static", strict_slashes=False)
+def cities_by_states():
+    """Display an HTML page"""
     states = storage.all("State")
     amenities = storage.all("Amenity")
     places = storage.all("Place")
-    return render_template("100-hbnb.html",
-                           states=states, amenities=amenities, places=places)
+    return render_template("100-hbnb.\
+html", states=states, amenities=amenities, places=places)
 
 
 @app.teardown_appcontext
@@ -28,4 +29,4 @@ def teardown(exc):
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0")
+    app.run(debug=True, host="0.0.0.0")
